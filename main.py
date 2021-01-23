@@ -6,7 +6,7 @@ from tensorflow import keras
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+#Initial values for visual simulation
 theta = 0
 thetadot = 0
 l = 0.2
@@ -20,7 +20,7 @@ dt = 0.001
 # fx = gcurve(color=color.blue)
 
 
-def function1(time):
+def pendulum_function1(time):
     num = 0.0
     thet = 0
     thetdot = 0
@@ -43,13 +43,13 @@ def pendulum_function2(time):
         num = num + delt
     return thetddot
 
-
+#Custom loss function to minimize thetaDDActual - thetaDDPredicted 
 def pendulum_loss(y_true, y_pred):
     inp1 = y_true
     inp2 = y_pred
     return (pendulum_function2(inp1) - pendulum_function2(inp2)) ** 2
 
-
+#Creating random initial conditions to test
 x = []
 y = []
 
@@ -65,6 +65,7 @@ np.reshape(x, (-1, 4))
 
 tf.keras.backend.set_floatx('float64')
 
+#Creation of model
 model = keras.Sequential([
     keras.layers.Dense(1, activation='linear'),
     keras.layers.Dense(12, activation='linear'),
@@ -83,10 +84,11 @@ model.fit(x, y, epochs=10, batch_size=1)
 model.save('first_model')
 new_model = tf.keras.models.load_model('first_model')
 
+#Testing out the model with a known initial values
 prediction = model.predict([[0.21793312599435977, 0.019836378356533985, 21.45892175603604, 0.4829995271006352]])
 print(prediction)
 
-
+#Code for a visual simulation of the system
 jiggle = box(pos=vector(A * cos(omega * t), 0.1, 0), size=vector(0.03, 0.02, 0.02))
 mass = sphere(pos=jiggle.pos + vector(l * sin(theta), -l * cos(theta), 0), radius=0.01, color=color.yellow,
               make_trail=True)
@@ -103,6 +105,6 @@ while t < 5:
     stick.pos = jiggle.pos
     stick.axis = mass.pos - jiggle.pos
 
-
+#Timing how long it takes to evaluation how the system evolves
 stop = time.time()
 print(stop - start)
