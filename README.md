@@ -1,4 +1,4 @@
-# diffeqNuralNet
+# diffeqNeuralNet
 
 
 ## What is this?
