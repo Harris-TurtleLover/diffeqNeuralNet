@@ -19,7 +19,7 @@ Solutions to the equation was estimeted with Euler's method of intergration. Ini
 ## What is the custom loss function?
 It is the magnitude of the difference between the actual theta minus the predicted theta all squared. As this loss function approaches zero the nural network becomes more accurate.
 
-### Resonance
+## Resonance
 An interesting aspect of this system is if the pivot point is oscillating at a frequency equal to that of the pendulum the oscillator will continously add energy to the pendulum causing it to go higher and higher until the frequency of the pendulum deviates from the small angle approximation of frequency (sqrt(g/L)). 
 
 <a href="https://i.imgur.com/V7oLyv3.gif"><img src="https://i.imgur.com/V7oLyv3.gif" title="Resonance"/></a>
